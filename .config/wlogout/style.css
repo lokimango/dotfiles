@@ -1,0 +1,52 @@
+/* ── wlogout · monochromes, dunkles Power-Menü ──────────────
+   Passend zu Hyprland (rounding = 6) + Waybar: schwarz/transparent,
+   weiße/graue Icons & Text, dezente Rundung.
+   ───────────────────────────────────────────────────────── */
+
+* {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 14px;
+    background-image: none;
+    box-shadow: none;
+    text-shadow: none;
+    transition: all 0.15s ease;
+}
+
+/* abgedunkelter, leicht transparenter Vollflächen-Hintergrund */
+window {
+    background-color: rgba(8, 8, 8, 0.85);
+}
+
+button {
+    color: #cfcfcf;
+    background-color: rgba(20, 20, 20, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    margin: 12px;
+    outline: none;
+
+    /* feste, gleiche Maße -> alle Buttons exakt gleich groß
+       (wlogout-Grid ist nicht spalten-homogen, sonst werden Spalten
+        unterschiedlich breit) */
+    min-width: 190px;
+    min-height: 190px;
+
+    /* Icon zentriert oben, Text darunter (wlogout rendert label darunter) */
+    background-repeat: no-repeat;
+    background-position: center 30%;
+    background-size: 26%;
+}
+
+button:focus,
+button:hover {
+    color: #ffffff;
+    background-color: rgba(200, 200, 200, 0.14);
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Icons: graustufige Kopien (aus den Paket-Icons entfärbt) */
+#lock     { background-image: image(url("icons/lock.png")); }
+#logout   { background-image: image(url("icons/logout.png")); }
+#suspend  { background-image: image(url("icons/suspend.png")); }
+#reboot   { background-image: image(url("icons/reboot.png")); }
+#shutdown { background-image: image(url("icons/shutdown.png")); }

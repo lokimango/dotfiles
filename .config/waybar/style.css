@@ -1,0 +1,98 @@
+/* ── Monochrome, freischwebende Waybar ─────────────────────
+   Reine Graustufen: schwarz/dunkelgrau Hintergrund, weiß/grau
+   Text & Icons. Passend zur Fensterrundung (rounding = 6).
+   ───────────────────────────────────────────────────────── */
+
+* {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 12px;
+    font-weight: 500;
+    min-height: 0;
+    padding: 0;
+    margin: 0;
+    /* kein bunter Glow/Schatten an Icons */
+    text-shadow: none;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+}
+
+/* Der schwebende Balken selbst: dunkel, leicht transparent, gerundet */
+window#waybar {
+    background: rgba(8, 8, 8, 0.72);
+    color: #c8c8c8;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+}
+
+/* ── Modul-Abstände ──────────────────────────────────────── */
+#workspaces,
+#clock,
+#cpu,
+#memory,
+#temperature,
+#network,
+#pulseaudio,
+#battery {
+    padding: 0 9px;
+    background: transparent;
+}
+
+/* etwas Luft an den Bar-Enden */
+#workspaces { margin-left: 4px; }
+#battery    { margin-right: 4px; }
+
+/* ── Workspaces ──────────────────────────────────────────── */
+#workspaces button {
+    padding: 0 7px;
+    margin: 3px 2px;
+    color: #4d4d4d;              /* inaktiv: gedämpftes Grau */
+    background: transparent;
+    border-radius: 6px;          /* dezente Rundung */
+    transition: all 0.15s ease;
+}
+
+#workspaces button.active {
+    color: #0a0a0a;              /* dunkler Text ... */
+    background: #c8c8c8;         /* ... auf hellgrauer Pille */
+}
+
+#workspaces button:hover {
+    color: #e0e0e0;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* ── Uhr (Mitte) ─────────────────────────────────────────── */
+#clock {
+    color: #f0f0f0;
+    font-weight: 600;
+}
+
+/* ── Rechte Systeminfos ──────────────────────────────────── */
+#cpu,
+#memory,
+#temperature,
+#network,
+#pulseaudio,
+#battery {
+    color: #b0b0b0;
+}
+
+/* Warn-/Kritisch-Zustände nur über Helligkeit, keine Farbe */
+#temperature.critical { color: #ffffff; }
+
+#battery.warning  { color: #dddddd; }
+#battery.critical { color: #ffffff; }
+#battery.charging { color: #d0d0d0; }
+
+/* ── Tooltips ────────────────────────────────────────────── */
+tooltip {
+    background: rgba(10, 10, 10, 0.96);
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    color: #c8c8c8;
+}
+
+tooltip label {
+    color: #c8c8c8;
+}

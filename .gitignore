@@ -1,0 +1,10 @@
+# Logs / Debug
+*.log
+*.err
+hyprlock-debug.log
+
+# Backups / temporär
+*.bak
+*~
+*.swp
+.DS_Store

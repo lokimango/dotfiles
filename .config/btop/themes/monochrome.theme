@@ -1,0 +1,65 @@
+# btop monochrome / greyscale theme
+# Alle Gradienten laufen von Dunkelgrau -> Hellgrau. Keine Farben.
+
+theme[main_bg]="#0a0a0a"
+theme[main_fg]="#c8c8c8"
+theme[title]="#e0e0e0"
+theme[hi_fg]="#ffffff"
+theme[selected_bg]="#2a2a2a"
+theme[selected_fg]="#ffffff"
+theme[inactive_fg]="#555555"
+theme[graph_text]="#a0a0a0"
+theme[meter_bg]="#1e1e1e"
+theme[proc_misc]="#909090"
+
+# Boxen
+theme[cpu_box]="#333333"
+theme[mem_box]="#333333"
+theme[net_box]="#333333"
+theme[proc_box]="#333333"
+theme[div_line]="#2a2a2a"
+
+# Temperatur-Gradient
+theme[temp_start]="#4a4a4a"
+theme[temp_mid]="#9a9a9a"
+theme[temp_end]="#f0f0f0"
+
+# CPU-Gradient
+theme[cpu_start]="#4a4a4a"
+theme[cpu_mid]="#9a9a9a"
+theme[cpu_end]="#f0f0f0"
+
+# Freier Speicher
+theme[free_start]="#303030"
+theme[free_mid]="#606060"
+theme[free_end]="#909090"
+
+# Cached
+theme[cached_start]="#404040"
+theme[cached_mid]="#707070"
+theme[cached_end]="#a0a0a0"
+
+# Available
+theme[available_start]="#505050"
+theme[available_mid]="#808080"
+theme[available_end]="#b0b0b0"
+
+# Used
+theme[used_start]="#5a5a5a"
+theme[used_mid]="#9a9a9a"
+theme[used_end]="#f0f0f0"
+
+# Download
+theme[download_start]="#404040"
+theme[download_mid]="#808080"
+theme[download_end]="#c8c8c8"
+
+# Upload
+theme[upload_start]="#404040"
+theme[upload_mid]="#808080"
+theme[upload_end]="#c8c8c8"
+
+# Prozess-Gradient
+theme[process_start]="#4a4a4a"
+theme[process_mid]="#9a9a9a"
+theme[process_end]="#f0f0f0"

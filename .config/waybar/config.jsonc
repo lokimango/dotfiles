@@ -1,0 +1,97 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 30,
+    "spacing": 4,
+    "margin-top": 8,
+    "margin-left": 10,
+    "margin-right": 10,
+    "modules-left": [
+        "hyprland/workspaces"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "cpu",
+        "memory",
+        "temperature",
+        "network",
+        "pulseaudio",
+        "battery"
+    ],
+    "hyprland/workspaces": {
+        "format": "{id}",
+        "on-click": "activate",
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1"
+    },
+    "clock": {
+        "format": "{:%H:%M}",
+        "tooltip-format": "<big>{:%A, %d. %B %Y}</big>\n<tt><small>{calendar}</small></tt>",
+        "format-alt": "{:%a %d.%m}"
+    },
+    "cpu": {
+        "interval": 2,
+        "format": "  {usage}%",
+        "tooltip": false
+    },
+    "memory": {
+        "interval": 5,
+        "format": "  {percentage}%",
+        "tooltip-format": "RAM {used:0.1f} / {total:0.1f} GiB"
+    },
+    "temperature": {
+        "thermal-zone": 8,
+        "interval": 5,
+        "critical-threshold": 85,
+        "format": "  {temperatureC}°C",
+        "format-critical": "  {temperatureC}°C",
+        "tooltip": false
+    },
+    "network": {
+        "interval": 5,
+        "format-wifi": "  {signalStrength}%",
+        "format-ethernet": "  ",
+        "format-linked": "  ",
+        "format-disconnected": "  ",
+        "tooltip-format-wifi": "{essid}  ({signalStrength}%)\n{ifname}: {ipaddr}",
+        "tooltip-format-ethernet": "{ifname}: {ipaddr}",
+        "tooltip-format-disconnected": "getrennt",
+        "on-click": "kitty -e nmtui"
+    },
+    "pulseaudio": {
+        "format": "{icon}  {volume}%",
+        "format-muted": "  stumm",
+        "format-icons": {
+            "headphone": "",
+            "headset": "",
+            "default": [
+                "",
+                "",
+                ""
+            ]
+        },
+        "scroll-step": 5,
+        "on-click": "pavucontrol",
+        "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+    },
+    "battery": {
+        "interval": 30,
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon}  {capacity}%",
+        "format-charging": "  {capacity}%",
+        "format-plugged": "  {capacity}%",
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        "tooltip-format": "{capacity}%  ({time})"
+    }
+}

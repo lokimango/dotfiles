@@ -1,12 +1,12 @@
 {
     "label" : "lock",
-    "action" : "$HOME/.config/hypr/scripts/lock.sh",
+    "action" : "hyprctl dispatch 'hl.dsp.exec_cmd([[$HOME/.config/hypr/scripts/lock.sh]])'",
     "text" : "Sperren",
     "keybind" : "l"
 }
 {
     "label" : "logout",
-    "action" : "hyprctl dispatch exit",
+    "action" : "hyprctl dispatch 'hl.dsp.exit()'",
     "text" : "Abmelden",
     "keybind" : "e"
 }

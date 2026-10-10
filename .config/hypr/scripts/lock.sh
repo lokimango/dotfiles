@@ -16,5 +16,9 @@ LOG="$HOME/hyprlock-debug.log"
     echo "==================================================="
 } >> "$LOG"
 
+# wlogout-Menü sicher schließen, BEVOR gesperrt wird — sonst bliebe es hinter
+# hyprlock offen und blitzt nach dem Entsperren kurz durch.
+pkill -x wlogout 2>/dev/null
+
 # exec -> ein einziger, sauberer Prozess (kein verwaister Elternprozess)
 exec hyprlock --verbose >> "$LOG" 2>&1

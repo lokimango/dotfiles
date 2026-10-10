@@ -9,6 +9,15 @@ backup="$HOME/.config-backup-$stamp"
 
 echo ":: Dotfiles aus: $repo"
 
+# 0) Die Hauptconfig ist Lua (hypr/hyprland.lua) -> braucht Hyprland >= 0.55.
+#    Nur eine Warnung: beim Erst-Setup ist Hyprland evtl. noch gar nicht installiert.
+if command -v Hyprland >/dev/null 2>&1; then
+    ver="$(Hyprland --version 2>/dev/null | head -1 | awk '{print $2}')"
+    if [ -n "$ver" ] && [ "$(printf '%s\n0.55.0\n' "$ver" | sort -V | head -1)" != "0.55.0" ]; then
+        echo "!! Hyprland $ver ist zu alt: hyprland.lua braucht mindestens 0.55."
+    fi
+fi
+
 # 1) Vorhandene Zielordner sichern
 mkdir -p "$backup"
 for d in "$repo"/.config/*/; do
@@ -19,17 +28,28 @@ for d in "$repo"/.config/*/; do
     fi
 done
 
-# 2) Configs kopieren (Rechte erhalten -> Skripte bleiben ausführbar)
+# 2) Alte hyprlang-Configs entfernen (liegen im Backup). Existiert eine hyprland.lua,
+#    ignoriert Hyprland eine daneben liegende hyprland.conf KOMMENTARLOS.
+#    hyprlock.conf bleibt: hyprlock nutzt weiterhin das .conf-Format.
+for f in hyprland.conf monitors.conf env.conf; do
+    if [ -e "$HOME/.config/hypr/$f" ]; then
+        echo ":: Entferne altes ~/.config/hypr/$f (ersetzt durch .lua, liegt im Backup)"
+        rm -f "$HOME/.config/hypr/$f"
+    fi
+done
+
+# 3) Configs kopieren (Rechte erhalten -> Skripte bleiben ausführbar)
 mkdir -p "$HOME/.config"
 cp -r --preserve=mode "$repo"/.config/* "$HOME/.config/"
 echo ":: Configs nach ~/.config kopiert."
 
-# 3) Wallpaper
+# 4) Wallpaper
 mkdir -p "$HOME/Pictures/wallpapers"
 cp "$repo/wallpapers/wall.png" "$HOME/Pictures/wallpapers/wall.png"
 echo ":: Wallpaper nach ~/Pictures/wallpapers/wall.png kopiert."
 
 echo
 echo "Fertig. Backup der alten Configs: $backup"
-echo "Jetzt anpassen: ~/.config/hypr/monitors.conf und ~/.config/hypr/env.conf"
-echo "(siehe README) — dann neu einloggen."
+echo "Zugeschnitten auf: NVIDIA RTX 3060 Ti, Monitor DP-3 2560x1440@240 (siehe README)."
+echo "Andere Hardware? Dann ~/.config/hypr/monitors.lua und env.lua anpassen."
+echo "Prüfen:  Hyprland --verify-config   (muss 'config ok' melden) — dann neu einloggen."

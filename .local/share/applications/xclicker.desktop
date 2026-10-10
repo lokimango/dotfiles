@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=XClicker
+GenericName=XClicker
+Comment=A blazing fast gui autoclicker for linux
+# GDK_BACKEND=x11 erzwingt XWayland.
+# xclicker liest Tasten per XInput2 (XISelectEvents) vom X-Server. Startet GTK
+# nativ unter Wayland, gehen die Tastendruecke NIE durch XWayland - der
+# Hotkey-Dialog sieht dann nichts und der Hotkey laesst sich nicht setzen.
+Exec=env GDK_BACKEND=x11 xclicker
+Icon=xclicker
+Terminal=false
+Type=Application
+Categories=Utility;

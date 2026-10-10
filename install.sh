@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Installer für dieses monochrome Hyprland-Setup.
-# Kopiert .config/* nach ~/.config (mit Backup) und legt das Wallpaper ab.
+# Kopiert .config/* nach ~/.config (mit Backup), Programm-Starter nach
+# ~/.local/share/applications und legt das Wallpaper ab.
 set -euo pipefail
 
 repo="$(cd "$(dirname "$0")" && pwd)"
@@ -43,7 +44,21 @@ mkdir -p "$HOME/.config"
 cp -r --preserve=mode "$repo"/.config/* "$HOME/.config/"
 echo ":: Configs nach ~/.config kopiert."
 
-# 4) Wallpaper
+# 4) Programm-Starter (.desktop) — z. B. xclicker mit erzwungenem XWayland
+if [ -d "$repo/.local/share/applications" ]; then
+    mkdir -p "$HOME/.local/share/applications"
+    cp "$repo"/.local/share/applications/*.desktop "$HOME/.local/share/applications/"
+    echo ":: Programm-Starter nach ~/.local/share/applications kopiert."
+fi
+
+# Vencord liest seine Einstellungen nur beim Start. Läuft Discord gerade, würde es
+# beim nächsten Speichern seinen alten Stand über die neue Datei schreiben.
+if pgrep -x Discord >/dev/null 2>&1; then
+    echo "!! Discord läuft — jetzt komplett beenden und neu starten,"
+    echo "!! sonst überschreibt Vencord die gerade kopierten Einstellungen."
+fi
+
+# 5) Wallpaper
 mkdir -p "$HOME/Pictures/wallpapers"
 cp "$repo/wallpapers/wall.png" "$HOME/Pictures/wallpapers/wall.png"
 echo ":: Wallpaper nach ~/Pictures/wallpapers/wall.png kopiert."

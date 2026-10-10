@@ -20,6 +20,9 @@ der genaue Stand meines **Desktop-PCs**: CachyOS (Arch) + Hyprland (Wayland) auf
 | `cliphist/` | cliphist | Zwischenablage-Historie (max. 100 Einträge) |
 | `fastfetch/` | fastfetch | Systeminfo |
 | `btop/` | btop | Ressourcen-Monitor (Theme `monochrome`) |
+| `Vencord/` | Vencord (Discord) | Plugin-Einstellungen (31 aktiv) — nur die Einstellungen, nicht Vencord selbst |
+| `polychromatic/` | Polychromatic | Tastatur-RGB: Effekt „Lila" samt Zustand, damit der Autostart ihn wiederherstellt |
+| `.local/share/applications/` | xclicker | Starter mit erzwungenem XWayland (siehe Besonderheiten) |
 
 ### `hypr/` im Detail
 
@@ -49,6 +52,10 @@ Danach neu einloggen.
 > `install.sh` sichert vorhandene Zielordner nach `~/.config-backup-<datum>/` und entfernt
 > eine alte `hyprland.conf`/`monitors.conf`/`env.conf` (liegen im Backup). Grund: Existiert
 > eine `hyprland.lua`, ignoriert Hyprland die `.conf` **kommentarlos**.
+>
+> **Discord vorher beenden:** Vencord liest seine Einstellungen nur beim Start und würde
+> die kopierte Datei sonst beim nächsten Speichern mit dem alten Stand überschreiben.
+> `install.sh` warnt, wenn Discord läuft.
 
 ---
 
@@ -95,6 +102,13 @@ Auf CachyOS liegen beide auch direkt im `cachyos`-Repo.
 |---|---|
 | `nvidia-open` (CachyOS: `linux-cachyos-nvidia-open`) | GPU-Treiber, Modeset aktiv |
 | `openrazer-daemon` + `polychromatic` (AUR) | Tastatur-RGB. Benutzer muss in die Gruppe `openrazer`. Fehlt es, scheitert nur die Autostart-Zeile — harmlos. |
+
+### Apps
+
+| Paket | Wofür |
+|---|---|
+| Vencord | Über den offiziellen Installer: `sh -c "$(curl -sS https://vencord.dev/install.sh)"` — danach greifen die Einstellungen aus `Vencord/` |
+| `xclicker` (AUR) | Autoclicker |
 
 ---
 
@@ -154,6 +168,12 @@ Auf CachyOS liegen beide auch direkt im `cachyos`-Repo.
   sonst würde das Schließen von wlogout den Sperrvorgang mitreißen.
 - **Tastatur-RGB:** `polychromatic-helper --autostart` steht im Autostart, weil Hyprland
   XDG-Autostart (`/etc/xdg/autostart/`) nicht auswertet.
+- **xclicker** startet mit `GDK_BACKEND=x11`. Es ist innen ein X11-Programm (liest Tasten per
+  XInput2), GTK3 wählt unter Hyprland aber Wayland — dann sieht es keine Tastendrücke und der
+  Hotkey lässt sich nicht setzen. Der Hotkey wirkt nur, solange ein **XWayland**-Fenster den
+  Fokus hat (z. B. Minecraft), nicht in Wayland-Programmen wie Brave oder kitty.
+- **Vencord:** Discord aktualisiert sich selbst nach `~/.config/discord/app-<version>/`. Fehlt
+  Vencord nach einem Update, den Installer erneut ausführen — die Einstellungen bleiben.
 
 ### Lua-Fallstricke (für spätere Änderungen)
 
